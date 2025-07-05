@@ -1,34 +1,30 @@
 import React from "react";
 
-const MainItem = ({coverImg, author, subjects, description}) => {
-    strSubjects = subjects.join(", ");
+const MainItem = ({props}) => {
 
     return (
         <div className="mainItemContainer">
-            <img src={coverImg}/>
+        {props.status === "full" && (
+            <>
+            <img src={props.coverImg}/>
             <div className="bookInfo">
-                <h4> Author : {author} </p>
-                <h6> Subjects : {strSubjects} </h6>
-                <p> Description : {description}</p>
+                <h2> Title : {props.title} </h2>
+                <button> Author : {props.author} </button>
+                <button> Main subject : {props.subject} </button>
+                <button> Published in : {props.pub_year} </button>
             </div>
-
-
+            </>
+        )}
+        {props.status === "error" && (
+            <>
+            <h3> An Error Occured Trying to Get Your Book. Please try clicking again. </h3>
+            </>
+        )}
+        
+            
         </div>
     )
 
 }
 
 export default MainItem;
-
-// https://openlibrary.org/works/{work_id}.json
-// https://openlibrary.org/subjects/{subject}.json
-// Returns JSON with:
-
-// Work title
-// Cover image IDs
-// Authors
-// Subjects
-// Edition counts
-
-// To get cover image : https://covers.openlibrary.org/b/id/{cover_id}-{size}.jpg
-//size can be S for small, M for medium, and L for large
