@@ -8,6 +8,7 @@ function App() {
   const [banList, setBanList] = useState([]);
   const [banSet, setBanSet] = useState(() => new Set());
   const [seenSoFarList, setSeenSoFarList] = useState([]);
+  const [seenWorkIds, setSeenWorkIds] = useState(() => new Set());
   const [mainItemProps, setMainItemProps] = useState({
     status: "empty",
     coverImg: "",
@@ -78,8 +79,9 @@ function App() {
             const title = doc.title || '';
             const author = doc.author_name ? doc.author_name[0] : '';
             const subject = doc.subject ? doc.subject[0] : '';
+            const workId = doc.key;
 
-            if (banSet.has(title) || banSet.has(author) || banSet.has(subject)) {
+            if (banSet.has(title) || banSet.has(author) || banSet.has(subject) || seenWorkIds.has(workId)) {
                 return false;
             }
             
@@ -123,6 +125,7 @@ function App() {
           author: author,
           subject: subject,
         }]);
+        setSeenWorkIds(() => new Set(seenWorkIds).add(workId));
 
         return;
       } catch (error) {
