@@ -1,0 +1,36 @@
+.ban-list-container {
+    background-color: #e5c2c2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.ban-list-container h1{
+    font-size: 2.5em;
+    text-decoration: underline;
+    margin-top: 60px;
+}
+
+.ban-list-container button{
+    border-radius: 10px;  
+    font-size: 20px;
+    height: 125px;
+    padding: 10px;
+    width: 100%;
+    background-color: #9d7777;  
+    overflow-y: auto; 
+    box-sizing: border-box; 
+    white-space: normal; 
+    text-wrap: wrap;
+    display: block; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    word-break: break-word;
+    color: #8bd9f1;
+}

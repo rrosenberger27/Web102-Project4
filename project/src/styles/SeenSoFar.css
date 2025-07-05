@@ -1,0 +1,43 @@
+.seen-so-far-container {
+    background-color: #e5c2c2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.seen-so-far-container h1 {
+    font-size: 2.5em;
+    text-decoration: underline;
+    margin-top: 60px;
+}
+
+.seen-so-far-container h2 {
+    font-size: 1.4em;
+    margin-bottom: 0px;
+}
+
+.seen-so-far-container p {
+    margin-bottom: 0px;
+    font-size: 1.2em;
+}
+
+.mini-item-container {
+    margin-top: 10px;
+    background-color: #9d7777;
+    padding: 5px;
+    border-radius: 10px; 
+    height: 200px; 
+    white-space: normal; 
+    text-wrap: wrap;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    word-break: break-word;
+    overflow-y: auto;
+    color: #8bd9f1;
+}

@@ -5,6 +5,18 @@ import SeenSoFar from "./components/SeenSoFar";
 import BanList from "./components/BanList";
 
 function App() {
+  const [banList, setBanList] = useState([]);
+  const [banSet, setBanSet] = useState(() => new Set());
+  const [seenSoFarList, setSeenSoFarList] = useState([]);
+  const [mainItemProps, setMainItemProps] = useState({
+    status: "empty",
+    coverImg: "",
+    title: "",
+    author: "",
+    subject: "",
+    pub_year: "",
+  });
+
   const getCoverImgUrl = (coverId, size = "M") => {
     if (!coverId) {
       return null;
@@ -27,15 +39,6 @@ function App() {
 
     return "No subjects listed";
   };
-
-  const [mainItemProps, setMainItemProps] = useState({
-    status: "empty",
-    coverImg: "",
-    title: "",
-    author: "",
-    subject: "",
-    pub_year: "",
-  });
 
   const getRandBook = async () => {
     const MAX_ATTEMPTS = 7;
@@ -68,7 +71,20 @@ function App() {
         }
 
         const potentialBooks = docs.filter(
-          (doc) => doc.key && doc.key.startsWith("/works") && doc.cover_i
+          (doc) => {
+            if (!(doc.key && doc.key.startsWith("/works/") && doc.cover_i)) {
+              return false;
+            }
+            const title = doc.title || '';
+            const author = doc.author_name ? doc.author_name[0] : '';
+            const subject = doc.subject ? doc.subject[0] : '';
+
+            if (banSet.has(title) || banSet.has(author) || banSet.has(subject)) {
+                return false;
+            }
+            
+            return true;
+          }
         );
         if (potentialBooks.length === 0) {
           console.log(`No works found. Retrying...`);
@@ -102,6 +118,12 @@ function App() {
            subject: subject,
            pub_year: pub_year,
         });
+        setSeenSoFarList([...seenSoFarList, {
+          title: title,
+          author: author,
+          subject: subject,
+        }]);
+
         return;
       } catch (error) {
         console.error(`Error in getRandBook (attempt ${attempts}): `, error);
@@ -124,28 +146,54 @@ function App() {
     return;
   };
 
+  const addToBanned = (bannedItem) => {
+    if (bannedItem !== "N/A" && bannedItem !== "Unknown Author" && bannedItem !== "No subjects listed" && !banSet.has(bannedItem)) {
+      setBanList([...banList, bannedItem]);
+      const newBanSet = new Set(banSet);
+      newBanSet.add(bannedItem);
+      setBanSet(newBanSet);
+    }
+  }
 
+  const removeFromBanned = (unbannedItem) => {
+    const updatedBanList = banList.filter(item => item !== unbannedItem);
+    const newBanset = new Set(banSet);
+    if (updatedBanList.length === banList.length) {
+      console.log("banned item not found");
+      return;
+    }
+    newBanset.delete(unbannedItem);
+    setBanSet(newBanset);
+    setBanList(updatedBanList);
+  }
 
   return (
     <div className="app-container">
+
+      <SeenSoFar 
+      seenSoFarList={seenSoFarList}
+       />
+
       <div className="header-section">
         <h1>Find your next read!</h1>
         <p> Click through and see what books you find! </p>
-      </div>
-
-      <div className="components-row">
-        <SeenSoFar/>
-        <MainItem 
+            <MainItem 
           props={mainItemProps}
-        />
-        <BanList/>
+          addToBanned={addToBanned}
+            />
+
+
+          <div className="button-container">
+          <button className="get-book-btn" onClick={getRandBook}>
+            Get Book!
+          </button>
+        </div>
       </div>
 
-      <div className="button-container">
-        <button className="get-book-btn" onClick={getRandBook}>
-          Get Book!
-        </button>
-      </div>
+      <BanList
+      banList={banList}
+      removeFromBanned={removeFromBanned} />
+
     </div>
   );
 }

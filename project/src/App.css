@@ -1,16 +1,24 @@
 .app-container {
+    display: grid;
+    grid-template-columns: 25% minmax(0, 1fr) 25%;
+    gap: 15px;
     width: 100%;
-    max-width: 1200px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 1400px;
+    height: 98vh;
+    overflow: hidden;
 }
 
 .header-section {
-    margin-bottom: 30px;
-    text-align: center;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    background-color: #dda7a7;
 }
 
 .header-section h1 {
@@ -18,36 +26,39 @@
     color: #333;
     margin-top: 20px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .header-section p {
     font-size: 1.5em;
-    color: #555;
-    margin-bottom: 20px;
+    color: #171616;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 500;
 }
 
 .button-container {
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 
 button {
     height: 60px;
     width: 200px;
-    background-color: #39cbf8;
+    background-color: #7be0ff;
     border-radius: 200px;
-    border: 2px solid #dccccc;
+    border: 0px;
     font-size: 20px;
     transition: transform 0.3s ease-in-out, background-color 0.1s ease-in-out;
     font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
+    overflow-y: auto;
 }
 
 button:hover {
     background-color: #36bee7;
-    cursor: pointer;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 button:active {

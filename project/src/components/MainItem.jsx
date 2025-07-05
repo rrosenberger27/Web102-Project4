@@ -1,17 +1,18 @@
 import React from "react";
+import "../styles/MainItem.css";
 
-const MainItem = ({props}) => {
+const MainItem = ({props, addToBanned}) => {
 
     return (
-        <div className="mainItemContainer">
+        <div className="main-item-container">
         {props.status === "full" && (
             <>
             <img src={props.coverImg}/>
-            <div className="bookInfo">
-                <h2> Title : {props.title} </h2>
-                <button> Author : {props.author} </button>
-                <button> Main subject : {props.subject} </button>
-                <button> Published in : {props.pub_year} </button>
+            <h2> {props.title} </h2>
+            <div className="book-info">
+                <button onClick={() => {addToBanned(props.author)}}> By {props.author} </button>
+                <button onClick={() => {addToBanned(props.subject)}}> {props.subject} </button>
+                <button onClick={() => {addToBanned(props.pub_year)}}> {props.pub_year} </button>
             </div>
             </>
         )}

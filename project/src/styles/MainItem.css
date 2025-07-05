@@ -1,0 +1,22 @@
+.main-item-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-item-container img {
+    width: 50%;
+    height: auto;
+}
+
+.book-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.book-info button {
+    background-color: #fff;
+}
